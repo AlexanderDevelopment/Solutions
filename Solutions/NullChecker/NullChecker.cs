@@ -10,10 +10,12 @@ namespace _src.Scripts.OpenUnitySolutions
 		public static bool IsNull<T>(T checkingClass, bool debugMessages)
 		{
 			if (checkingClass is null)
-				return true;
+			{
+				if (debugMessages)
+					UnityEngine.Debug.LogError($"{checkingClass} is null");
 
-			if (debugMessages)
-				UnityEngine.Debug.LogError($"{checkingClass} is null");
+				return true;
+			}
 
 			return false;
 		}
@@ -22,10 +24,12 @@ namespace _src.Scripts.OpenUnitySolutions
 		public static bool IsNull<T>(T checkingClass, GameObject notify, bool debugMessages)
 		{
 			if (checkingClass is null)
-				return true;
+			{
+				if (debugMessages)
+					UnityEngine.Debug.LogError($"{checkingClass} is null", notify);
 
-			if (debugMessages)
-				UnityEngine.Debug.LogError($"{checkingClass} is null", notify);
+				return true;
+			}
 
 			return false;
 		}
@@ -87,10 +91,13 @@ namespace _src.Scripts.OpenUnitySolutions
 		public static bool IsNotNull<T>(T checkingClass, bool debugMessages)
 		{
 			if (checkingClass is null)
-				return false;
+			{
+				if (debugMessages)
+					UnityEngine.Debug.LogError($"{checkingClass} is null");
 
-			if (debugMessages)
-				UnityEngine.Debug.LogError($"{checkingClass} is null");
+				return false;
+			}
+
 
 			return true;
 		}
@@ -99,10 +106,13 @@ namespace _src.Scripts.OpenUnitySolutions
 		public static bool IsNotNull<T>(T checkingClass, GameObject notify, bool debugMessages)
 		{
 			if (checkingClass is null)
-				return false;
+			{
+				if (debugMessages)
+					UnityEngine.Debug.LogError($"{checkingClass} is null", notify);
 
-			if (debugMessages)
-				UnityEngine.Debug.LogError($"{checkingClass} is null", notify);
+				return false;
+			}
+
 
 			return true;
 		}
