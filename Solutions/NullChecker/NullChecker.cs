@@ -2,9 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-
-namespace _src.Scripts.OpenUnitySolutions
-{
 	public static class NullChecker
 	{
 		public static bool IsNull<T>(T checkingClass)
@@ -77,4 +74,3 @@ namespace _src.Scripts.OpenUnitySolutions
 			return oneMoreClassIsNull;
 		}
 	}
-}
