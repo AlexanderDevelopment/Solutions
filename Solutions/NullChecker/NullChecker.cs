@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -6,9 +7,9 @@ namespace _src.Scripts.OpenUnitySolutions
 {
 	public static class NullChecker
 	{
-		public static bool CheckForNull<T>(T checkingClass)
+		public static bool IsNull<T>(T checkingClass)
 		{
-			if (checkingClass is not null)
+			if (checkingClass is null)
 				return true;
 
 			UnityEngine.Debug.LogError($"{checkingClass} is null");
@@ -17,9 +18,9 @@ namespace _src.Scripts.OpenUnitySolutions
 		}
 
 
-		public static bool CheckForNull<T>(T checkingClass, GameObject notify)
+		public static bool IsNull<T>(T checkingClass, GameObject notify)
 		{
-			if (checkingClass is not null)
+			if (checkingClass is null)
 				return true;
 
 			UnityEngine.Debug.LogError($"{checkingClass} is null", notify);
@@ -28,41 +29,52 @@ namespace _src.Scripts.OpenUnitySolutions
 		}
 
 
-		public static bool CheckForNullAll<T>(GameObject notify, params T[] classes)
+		//When we are click on the error - problem gameObject is showing in inspector
+		public static bool IsNullAll<T>(GameObject notify, params T[] classes)
 		{
-			if (classes.Length <= 0)
-				return true;
-
-			foreach (var classExample in classes)
+			if (classes.Length == 0)
 			{
-				if (classExample is not null)
-					continue;
-
-				UnityEngine.Debug.LogError($"{classExample} is null", notify);
+				UnityEngine.Debug.LogError("No have classes to check for null");
 
 				return false;
 			}
 
-			return true;
+			bool oneMoreClassIsNull = false;
+
+			foreach (var classExample in classes)
+			{
+				if (classExample is null)
+				{
+					UnityEngine.Debug.LogError($"{classExample} is null", notify);
+					oneMoreClassIsNull = true;
+				}
+			}
+
+			return oneMoreClassIsNull;
 		}
 
 
-		public static bool CheckForNullAll<T>(params T[] classes)
+		public static bool IsNullAll<T>(params T[] classes)
 		{
-			if (classes.Length <= 0)
-				return true;
-
-			foreach (var classExample in classes)
+			if (classes.Length == 0)
 			{
-				if (classExample is not null)
-					continue;
-
-				UnityEngine.Debug.LogError($"{classExample} is null");
+				UnityEngine.Debug.LogError("No have classes to check for null");
 
 				return false;
 			}
 
-			return true;
+			bool oneMoreClassIsNull = false;
+
+			foreach (var classExample in classes)
+			{
+				if (classExample is null)
+				{
+					UnityEngine.Debug.LogError($"{classExample} is null");
+					oneMoreClassIsNull = true;
+				}
+			}
+
+			return oneMoreClassIsNull;
 		}
 	}
 }
