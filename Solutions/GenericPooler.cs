@@ -29,6 +29,7 @@ namespace _src.Scripts.OpenUnitySolutions.GenericPooler
 				GameObject newObj = new GameObject(typeof(T).Name + "_" + (i + 1));
 				T component = newObj.AddComponent<T>();
 				newObj.gameObject.transform.SetParent(newPooler.transform);
+				newObj.gameObject.SetActive(false);
 				_poolCache.Add(component);
 			}
 		}
@@ -40,18 +41,23 @@ namespace _src.Scripts.OpenUnitySolutions.GenericPooler
 			{
 				component.gameObject.SetActive(true);
 				component.gameObject.transform.position = Vector3.zero;
+
 				return component;
 			}
 
+			UnityEngine.Debug.Log($"No have free {typeof(T)} in pooler");
+
 			return null;
 		}
-		
+
+
 		public T GetFromPool(Vector3 position)
 		{
 			foreach (var component in _poolCache.Where(component => !component.gameObject.activeInHierarchy))
 			{
 				component.gameObject.SetActive(true);
 				component.gameObject.transform.position = position;
+
 				return component;
 			}
 
