@@ -59,7 +59,7 @@ namespace _src.Scripts.OpenUnitySolutions.GenericPooler
 		}
 
 
-		public void ReturnToPool(T component, int index)
+		public void ReturnToPool(T component)
 		{
 			if (_poolCache.Contains(component))
 				component.gameObject.SetActive(false);
