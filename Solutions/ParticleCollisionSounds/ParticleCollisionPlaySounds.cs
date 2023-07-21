@@ -31,8 +31,12 @@ namespace _src.Scripts.Level_01.PaintLogic
 		private AudioClip[] _audioClips;
 
 
-		[SerializeField, ShowIf("_randomSound", false)]
+		[SerializeField, HideIf("_randomSound", true)]
 		private AudioClip _audioClip;
+
+
+		[SerializeField, BoxGroup("AudioSourceSettings"), Range(0, 1)]
+		private float _volume = 1;
 
 
 		[SerializeField, ShowIf("_randomPitch"), Range(0, 2), BoxGroup("AudioSourceSettings")]
@@ -48,7 +52,7 @@ namespace _src.Scripts.Level_01.PaintLogic
 
 
 		[SerializeField, BoxGroup("AudioSourceSettings"), Range(0f, 1f)]
-		private float _spatialBlend;
+		private float _spatialBlend = 1f;
 
 
 		[SerializeField, BoxGroup("AudioSourceSettings")]
@@ -104,6 +108,7 @@ namespace _src.Scripts.Level_01.PaintLogic
 				newAudioSource.maxDistance = _maxDistance;
 				newAudioSource.spatialBlend = _spatialBlend;
 				newAudioSource.rolloffMode = _rolloffMode;
+				newAudioSource.volume = _volume;
 				PlaySoundAndReturnToPooler(newAudioSource).Forget();
 			}
 		}
@@ -120,11 +125,15 @@ namespace _src.Scripts.Level_01.PaintLogic
 		[Button(ButtonSizes.Large)]
 		protected virtual async void TestPlaySound()
 		{
-			AudioClip tmpAudioClip = null;
+			AudioClip tmpAudioClip;
 
 			if (_randomSound && _audioClips.Length > 0)
 			{
 				tmpAudioClip = _audioClips[Random.Range(0, _audioClips.Length)];
+			}
+			else
+			{
+				tmpAudioClip = _audioClip;
 			}
 
 			if (tmpAudioClip == null)
@@ -143,7 +152,7 @@ namespace _src.Scripts.Level_01.PaintLogic
 			SceneManager.MoveGameObjectToScene(temporaryAudioHost.gameObject, this.gameObject.scene);
 			temporaryAudioHost.transform.position = this.transform.position;
 			var editorAudioSource = temporaryAudioHost.AddComponent<AudioSource>();
-			PlayAudioSource(editorAudioSource, tmpAudioClip, 1, pitch, 0);
+			PlayAudioSource(editorAudioSource, tmpAudioClip, _volume, pitch, 0);
 			float length = 1000 * tmpAudioClip.length;
 			length = length / Mathf.Abs(pitch);
 			await Task.Delay((int)length);
