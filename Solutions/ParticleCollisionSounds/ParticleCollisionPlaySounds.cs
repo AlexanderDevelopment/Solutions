@@ -1,18 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using _src.Scripts.OpenUnitySolutions.GenericPooler;
-using Cysharp.Threading.Tasks;
-using MoreMountains.Feedbacks;
-using Sirenix.OdinInspector;
-using UnityEngine;
-using UnityEngine.Audio;
-using UnityEngine.SceneManagement;
-using Random = UnityEngine.Random;
 
-
-namespace _src.Scripts.Level_01.PaintLogic
-{
 	public class ParticleCollisionPlaySounds : MonoBehaviour
 	{
 		[SerializeField]
@@ -182,5 +168,4 @@ namespace _src.Scripts.Level_01.PaintLogic
 			// we start playing the sound
 			audioSource.Play();
 		}
-	}
 }
