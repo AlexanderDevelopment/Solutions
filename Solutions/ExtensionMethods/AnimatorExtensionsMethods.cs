@@ -13,7 +13,7 @@
 		}
 
 
-		public static async UniTask PlayAnimationClipOnceWithNewController(this Animator animator, AnimationClip animation, float fadeInDuration)
+		public static async UniTask PlayAnimationClipOnceAsync(this Animator animator, AnimationClip animation, float fadeInDuration)
 		{
 			var graph = PlayableGraph.Create();
 			var output = AnimationPlayableOutput.Create(graph, "Animation", animator);
