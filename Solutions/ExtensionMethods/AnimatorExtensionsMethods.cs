@@ -1,5 +1,4 @@
-
-	public static class AnimatorExtensionMethods
+public static class AnimatorExtensionMethods
 	{
 		public static async UniTask AsyncCrossFadeGesture(this Animator animator, string animationName, float fadeInDuration)
 		{
@@ -7,13 +6,13 @@
 			while (animator.GetCurrentAnimatorStateInfo(0).IsName(animationName) && 
 			       animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
 			{
-				await UniTask.Delay(1);
+				await UniTask.Yield();
 			}
 			
 		}
 
 
-		public static async UniTask PlayAnimationClipOnceAsync(this Animator animator, AnimationClip animation, float fadeInDuration)
+		public static async UniTask PlayAnimationClipOnceAsync(this Animator animator, AnimationClip animation)
 		{
 			var graph = PlayableGraph.Create();
 			var output = AnimationPlayableOutput.Create(graph, "Animation", animator);
