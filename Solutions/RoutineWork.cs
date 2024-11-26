@@ -32,11 +32,12 @@ namespace _src.Scripts.Utils
             }
         }
 
-        public static void CheckForNull<T>(ref T component) where T : Component
+        public static bool CheckForNull<T>(ref T component) where T : Component
         {
             if (component)
-                return;
+                return true;
             Debug.LogError($"{component} is null");
+            return false;
         }
     }
 }
